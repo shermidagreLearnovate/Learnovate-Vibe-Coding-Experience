@@ -20,3 +20,4 @@ The user provided this comprehensive prompt to initiate a self-evaluative resear
 4.  **Environment Cleanup:** Removed 8 obsolete agent configuration files from `project/.gemini/agents/`.
 5.  **Documentation Consolidation:** Synthesized and translated content from `@keep-in-mind`, `@model`, `@phases`, `@rules`, and `@goals` into a central `README.md` in the project root.
 6.  **Git Configuration:** Created a comprehensive `.gitignore` file for the React/NestJS/Prisma/Docker stack.
+7.  **Rule Enhancement (Workflow & Logging):** Added mandatory rules for creating a Git branch and Pull Request for every task. Also mandated that task-specific Readme files must be overwritten with full execution details (prompts + implementation) to maintain high-fidelity research logs.

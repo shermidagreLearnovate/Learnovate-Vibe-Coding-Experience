@@ -1,5 +1,20 @@
-Task 1.1
-The Goal: Initialize a monorepo or dual-folder structure for frontend and backend.
-Evaluation: "The Opinion Test." Does the model give you a generic README, or does it proactively suggest a structure that makes sense for a React/NestJS pairing?
+# Task 1.1: Initialize Monorepo
 
-Sample Prompt: "Set up a monorepo folder structure for a task management application. I want a frontend folder using React with Vite and a backend folder using NestJS. Include a basic README."
+**Goal:** Initialize a monorepo or dual-folder structure for frontend and backend.
+
+## Execution Log
+
+### Console Prompt (User Directive)
+"Procederemos a empezar el proyecto en @project\** con estas instrucciones @phases\phase-1-Infraestructure\task-1.1\**"
+
+### Sample Prompt (Task Instruction)
+"Set up a monorepo folder structure for a task management application. I want a frontend folder using React with Vite and a backend folder using NestJS. Include a basic README."
+
+### Implementation Details
+1.  **Directory Structure:** Created `project/frontend` and `project/backend` within the main project directory.
+2.  **Monorepo Strategy:** Implemented **NPM Workspaces** by creating a root `project/package.json` to manage both applications as a single entity.
+3.  **Workspace Automation:** Added scripts to the root `package.json` (`frontend:dev`, `backend:dev`, `install:all`) to streamline the development workflow.
+4.  **Documentation:** Created a dedicated `project/README.md` outlining the technical stack (including TanStack Query for frontend synergy) and a planned roadmap for the system infrastructure.
+
+### Evaluation
+The model proactively suggested a workspace-based structure instead of just creating empty folders, providing a functional foundation for cross-project dependency management.

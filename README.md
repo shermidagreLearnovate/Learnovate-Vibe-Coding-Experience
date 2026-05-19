@@ -1,6 +1,6 @@
 # Learnovate: Vibe-Coding Research Experience
 
-This project is a dedicated research study designed to evaluate the capabilities of AI models (specifically Gemini 2.0) in a "vibe-coding" and autonomous development context. The goal is to build a full-stack Task Management Application while documenting the model's performance, autonomy, and "visual taste."
+This project is a dedicated research study designed to evaluate the capabilities of AI models (gemini-3-flash-preview) in a "vibe-coding" and autonomous development context. The goal is to build a full-stack Task Management Application while documenting the model's performance, autonomy, and "visual taste."
 
 ---
 
@@ -22,10 +22,12 @@ This project is a dedicated research study designed to evaluate the capabilities
 
 1.  **Consistency:** Start each task with the provided 'starter prompt' but assist the model if it encounters blockers.
 2.  **Traceability:** Record all prompts used during the development process.
-3.  **Version Control:** Commit changes to the repository after every completed task.
-4.  **Visual Documentation:** Capture screenshots of the running application at key milestones.
-5.  **Insights:** Document interesting or unexpected suggestions made by the LLM.
-6.  **Transparency:** Document any additional instructions or system prompts defined in the environment.
+3.  **Task Documentation:** After completing each task, **overwrite** the corresponding `Readme.md` in its task folder (e.g., `phases/phase-X/task-X/Readme.md`) with the exact console prompt used, the sample prompt, and a full summary of the implementation to ensure comprehensive research logging.
+4.  **GitHub Workflow:** For every new task, a dedicated **Git branch** must be created. Upon completion of the task, a **Pull Request** must be opened to document the changes before merging.
+5.  **Version Control:** Commit changes to the repository after every completed task.
+6.  **Visual Documentation:** Capture screenshots of the running application at key milestones.
+7.  **Insights:** Document interesting or unexpected suggestions made by the LLM.
+8.  **Transparency:** Document any additional instructions or system prompts defined in the environment.
 
 ---
 
