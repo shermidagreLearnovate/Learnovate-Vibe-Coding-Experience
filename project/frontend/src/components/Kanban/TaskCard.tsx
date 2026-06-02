@@ -1,6 +1,6 @@
 import React from 'react';
 import { MoreHorizontal, Calendar, MessageSquare, Paperclip } from 'lucide-react';
-import { Task } from '../../types';
+import type{ Task } from '../../types';
 
 interface TaskCardProps {
   task: Task;
