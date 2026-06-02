@@ -17,8 +17,9 @@ This is a full-stack task management application built with a modern TypeScript 
 | **Database** | PostgreSQL |
 | **DevOps** | Docker, Docker Compose |
 
-## Getting Started (Planned)
+## Getting Started
 
-1. **Infrastructure:** `docker-compose up -d`
-2. **Backend:** `cd backend && npm install && npm run start:dev`
-3. **Frontend:** `cd frontend && npm install && npm run dev`
+1. **Install Dependencies:** `npm run install:all` from the root of the `project` folder.
+2. **Infrastructure:** `docker-compose up -d`
+3. **Backend:** `npm run backend:dev`
+4. **Frontend:** `npm run frontend:dev`

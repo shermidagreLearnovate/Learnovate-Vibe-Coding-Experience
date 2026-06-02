@@ -1,10 +1,5 @@
 ## Type of Change
 
-- [ ] ✨ New feature
-- [ ] 🐞 Bug fix
-- [ ] 📚 Documentation change
-- [ ] 💅 Code improvement or refactor
-- [ ] 🧪 Add or improve tests
 - [x] ⚙️ Configuration, Docker, or dependency change
 
 ---
@@ -12,10 +7,6 @@
 ## Services Affected
 
 - [x] `frontend` (React SPA)
-- [ ] `api-gateway` (Spring Cloud)
-- [ ] `user-service` (User management)
-- [ ] `course-service` (Courses and RAG)
-- [ ] `ai-service` (LLMs/Gemini/Ollama)
 - [x] `infrastructure` (Docker/PostgreSQL/pgvector)
 
 ---
@@ -34,9 +25,7 @@ This PR completes the initialization of **Phase 1: Infrastructure**. Although pr
 
 ## How was this tested?
 
-- [ ] Unit tests
-- [ ] Integration tests
 - [x] Docker Compose verification
-- [ ] pgvector / RAG validation
-
+- [ ] Pruebas unitarias
+- [ ] Pruebas de integración
 Verified that folder structures are correct and the Prisma client generates without errors.
