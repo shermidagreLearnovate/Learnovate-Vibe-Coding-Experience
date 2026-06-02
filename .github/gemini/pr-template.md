@@ -1,27 +1,15 @@
-## Tipo de Cambio
-
-*Por favor, marca con una `x` la opción que corresponda.*
-
-- [ ] ⚙️ Cambio en la configuración, Docker o dependencias
-
+## Change Type
+*Please mark with an `x` the option that applies.*
+- [ ] ⚙️ Configuration, Docker or dependency changes
 ---
-
-## ¿A qué servicio(s) afecta?
-
+## Which service(s) does it affect?
 - [ ] `frontend` (React SPA)
 - [ ] `infrastructure` (Docker/PostgreSQL/pgvector)
-
 ---
-
-## Descripción
-
-*Por favor, incluye un resumen claro de los cambios.*
-
+## Description
+*Please include a clear summary of the changes.*
 ---
-
-## ¿Cómo se ha probado esto?
-
-- [ ] Pruebas unitarias
-- [ ] Pruebas de integración
-- [ ] Verificación de Docker Compose
-
+## How was this tested?
+- [ ] Unit tests
+- [ ] Integration tests
+- [ ] Docker Compose verification
