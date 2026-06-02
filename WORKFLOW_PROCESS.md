@@ -60,5 +60,41 @@ After the implementation is validated (build/lint/tests pass), I perform one fin
 - **Why?** This ensures that anyone looking at the `phases/` directory can immediately see not just what *was* required, but what was actually delivered.
 - **PR Alignment:** This content is often used as the basis for the actual GitHub Pull Request description, following the `pr-template.md`.
 
-## 5. Documentation & PR
-Once the local records are set, I follow the `.github/gemini/pr-template.md` to describe my changes globally, ensuring the "Vibe-Coding" experience is maintained through high-quality, idiomatic code and clear documentation.
+## 6. Visual Workflow (Sequence Diagram)
+
+The following diagram illustrates the interaction between the User, the Gemini CLI Agent, and the Project Workspace during a typical task execution:
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Gemini as Gemini CLI Agent
+    participant Workspace as Project Workspace (.github, GEMINI.md, src)
+
+    User->>Gemini: Directive (e.g., "Implement Task 3.1")
+    
+    Note over Gemini: Phase 1: Research
+    Gemini->>Workspace: Scan for GEMINI.md & Instructions
+    Workspace-->>Gemini: Architecture & Workflow Rules
+    Gemini->>Workspace: Read Task Definition (Readme.md)
+    Workspace-->>Gemini: Requirements & Goals
+    Gemini->>Workspace: Inspect Codebase (schema.prisma, package.json)
+    Workspace-->>Gemini: Current State & Dependencies
+
+    Note over Gemini: Phase 2: Strategy
+    Gemini->>Gemini: Formulate Implementation Plan
+    Gemini->>User: Share Strategy & Update Topic
+
+    Note over Gemini: Phase 3: Execution (Iterative)
+    loop Plan -> Act -> Validate
+        Gemini->>Workspace: Apply Surgical Changes (replace/write_file)
+        Gemini->>Workspace: Run Validation (build, lint, test)
+        Workspace-->>Gemini: Result (Pass/Fail)
+    end
+
+    Note over Gemini: Phase 4: Final Documentation
+    Gemini->>Workspace: Generate PR_DESCRIPTION.md
+    Gemini->>Workspace: Update/Overwrite Task Readme.md (Result Capture)
+    Gemini->>Gemini: Match PR Template Style
+    Gemini->>User: Final Response & Completion Recap
+```
+
