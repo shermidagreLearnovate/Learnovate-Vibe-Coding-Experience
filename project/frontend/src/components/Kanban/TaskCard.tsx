@@ -1,17 +1,6 @@
 import React from 'react';
 import { MoreHorizontal, Calendar, MessageSquare, Paperclip } from 'lucide-react';
-
-export type Priority = 'LOW' | 'MEDIUM' | 'HIGH';
-
-export interface Task {
-  id: string;
-  title: string;
-  description?: string;
-  priority: Priority;
-  dueDate?: string;
-  commentsCount?: number;
-  attachmentsCount?: number;
-}
+import { Task } from '../../types';
 
 interface TaskCardProps {
   task: Task;
@@ -42,13 +31,13 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 
       <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-100 text-slate-400">
         <div className="flex items-center gap-3">
-          {task.commentsCount !== undefined && (
+          {task.commentsCount !== undefined && task.commentsCount > 0 && (
             <div className="flex items-center gap-1 text-[10px]">
               <MessageSquare size={12} />
               <span>{task.commentsCount}</span>
             </div>
           )}
-          {task.attachmentsCount !== undefined && (
+          {task.attachmentsCount !== undefined && task.attachmentsCount > 0 && (
             <div className="flex items-center gap-1 text-[10px]">
               <Paperclip size={12} />
               <span>{task.attachmentsCount}</span>
