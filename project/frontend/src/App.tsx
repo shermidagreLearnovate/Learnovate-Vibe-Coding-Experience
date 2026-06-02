@@ -1,70 +1,41 @@
 import MainLayout from './components/Layout/MainLayout'
+import KanbanBoard from './components/Kanban/KanbanBoard'
+import { Filter, SortAsc, LayoutGrid, List } from 'lucide-react'
 
 function App() {
   return (
     <MainLayout>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900">Welcome back, Samuel!</h1>
-          <p className="text-slate-500">Here's what's happening with your projects today.</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-            <h3 className="text-slate-500 text-sm font-medium">Total Tasks</h3>
-            <p className="text-3xl font-bold text-slate-900 mt-2">12</p>
-            <div className="mt-4 flex items-center text-xs text-green-600">
-              <span className="font-bold">+20%</span>
-              <span className="ml-1 text-slate-400">from last week</span>
-            </div>
+      <div className="flex flex-col h-full space-y-6">
+        {/* Dashboard Header */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900">Project: Vibe-Coding App</h1>
+            <p className="text-slate-500 text-sm">Managing the initial development phase and infrastructure.</p>
           </div>
           
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-            <h3 className="text-slate-500 text-sm font-medium">In Progress</h3>
-            <p className="text-3xl font-bold text-slate-900 mt-2">5</p>
-            <div className="mt-4 flex items-center text-xs text-indigo-600">
-              <span className="font-bold">Active now</span>
+          <div className="flex items-center gap-2">
+            <div className="flex bg-slate-200 p-1 rounded-xl">
+              <button className="p-1.5 bg-white text-indigo-600 rounded-lg shadow-sm">
+                <LayoutGrid size={18} />
+              </button>
+              <button className="p-1.5 text-slate-500 hover:text-slate-700 rounded-lg">
+                <List size={18} />
+              </button>
             </div>
-          </div>
-
-          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-            <h3 className="text-slate-500 text-sm font-medium">Completed</h3>
-            <p className="text-3xl font-bold text-slate-900 mt-2">84%</p>
-            <div className="mt-4 w-full bg-slate-100 rounded-full h-1.5">
-              <div className="bg-indigo-600 h-1.5 rounded-full w-[84%]"></div>
-            </div>
+            <button className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-xl text-sm font-semibold text-slate-600 hover:bg-white hover:shadow-sm transition-all">
+              <Filter size={16} />
+              <span>Filter</span>
+            </button>
+            <button className="flex items-center gap-2 px-4 py-2 border border-slate-200 rounded-xl text-sm font-semibold text-slate-600 hover:bg-white hover:shadow-sm transition-all">
+              <SortAsc size={16} />
+              <span>Sort</span>
+            </button>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-          <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-            <h2 className="font-bold text-slate-900">Recent Tasks</h2>
-            <button className="text-indigo-600 text-sm font-semibold hover:text-indigo-700">View all</button>
-          </div>
-          <div className="divide-y divide-slate-100">
-            {[
-              { title: 'Implement Prisma Schema', status: 'Done', priority: 'High' },
-              { title: 'Configure Tailwind CSS', status: 'In Progress', priority: 'Medium' },
-              { title: 'Build Kanban Board', status: 'Todo', priority: 'High' },
-            ].map((task, i) => (
-              <div key={i} className="px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
-                <div className="flex items-center gap-4">
-                  <div className={`w-2 h-2 rounded-full ${
-                    task.status === 'Done' ? 'bg-green-500' : 
-                    task.status === 'In Progress' ? 'bg-indigo-500' : 'bg-slate-300'
-                  }`}></div>
-                  <span className="text-slate-700 font-medium">{task.title}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className={`px-2.5 py-1 rounded-md text-xs font-bold ${
-                    task.priority === 'High' ? 'bg-red-50 text-red-600' : 'bg-amber-50 text-amber-600'
-                  }`}>
-                    {task.priority}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
+        {/* Board Area */}
+        <div className="flex-1 min-h-0">
+          <KanbanBoard />
         </div>
       </div>
     </MainLayout>

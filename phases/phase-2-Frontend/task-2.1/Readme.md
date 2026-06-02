@@ -5,7 +5,7 @@
 ## Execution Log
 
 ### Console Prompt (User Directive)
-"completala y cuando este da por finalizada la phase-1" (Followed by directive to start 2.1)
+" recuerda que ahora debes empezar con la fase @phases/phase-2-Frontend/task-2.1/ y seguir el formato con el que lo estabas haciendo"
 
 ### Sample Prompt (Task Instruction)
 "Using Tailwind CSS, build a professional-looking layout for the React app. Include a fixed sidebar for navigation and a top bar with a search input and a user profile placeholder."
