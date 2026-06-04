@@ -1,8 +1,8 @@
-import React from 'react';
-import { Plus, MoreVertical } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Plus, MoreVertical, Loader2 } from 'lucide-react';
 import TaskCard from './TaskCard';
 import { TaskStatus } from '../../types';
-import { mockTasks } from '../../data/mockData';
+import type { Task } from '../../types';
 
 interface Column {
   id: TaskStatus;
@@ -10,16 +10,57 @@ interface Column {
 }
 
 const KanbanBoard: React.FC = () => {
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const columns: Column[] = [
     { id: TaskStatus.TODO, title: 'To Do' },
     { id: TaskStatus.IN_PROGRESS, title: 'In Progress' },
     { id: TaskStatus.DONE, title: 'Done' },
   ];
 
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('http://localhost:3000/tasks');
+        if (!response.ok) {
+          throw new Error('Failed to fetch tasks');
+        }
+        const data = await response.json();
+        setTasks(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTasks();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-64 text-slate-500 gap-2">
+        <Loader2 className="animate-spin" size={24} />
+        <span className="font-medium">Loading tasks...</span>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center h-64 text-red-500 font-medium">
+        Error: {error}
+      </div>
+    );
+  }
+
   return (
     <div className="flex gap-6 overflow-x-auto pb-4 h-full items-start">
       {columns.map((column) => {
-        const columnTasks = mockTasks.filter(task => task.status === column.id);
+        const columnTasks = tasks.filter(task => task.status === column.id);
         
         return (
           <div key={column.id} className="flex-shrink-0 w-80 flex flex-col max-h-full">
