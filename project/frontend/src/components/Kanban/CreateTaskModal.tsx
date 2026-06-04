@@ -1,4 +1,4 @@
-import { useState, FC } from 'react';
+import { useState, type FC } from 'react';
 import { X } from 'lucide-react';
 import { TaskStatus, Priority } from '../../types';
 

@@ -8,7 +8,7 @@ import {
   Bell, 
   UserCircle 
 } from 'lucide-react';
-import { FC } from 'react';
+import { type FC } from 'react';
 
 interface MainLayoutProps {
   children: React.ReactNode;
