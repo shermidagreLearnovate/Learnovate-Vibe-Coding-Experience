@@ -42,7 +42,56 @@ Following an internal audit, several implementation gaps were identified and res
 *   **DTO Initialization:** All mandatory fields in `CreateTaskDto` are now properly initialized to support strict TypeScript checks.
 *   **Entity Population:** The `Task` entity is now fully populated, mirroring the Prisma schema to allow for proper data mapping in the service layer.
 *   **Test Refactoring:** `app.controller.spec.ts` was rewritten using standard NestJS testing fixtures for better reliability.
-*   **Config Optimization:** `tsconfig.json` was corrected to use standard `commonjs` modules and verified for proper path resolution during the build process.
+
+### 🧪 Deep Dive: Why did the Tests fail?
+Even though `npm run build` was successful, `npm run test` failed due to a structural mismatch in the testing boilerplate.
+
+**The Problem:**
+1.  **Declaration vs. Usage:** The test was trying to use a `moduleFixture` variable that wasn't correctly aligned with the `app` instance in the `beforeEach` block.
+2.  **Describe Block Mismatch:** The test was looking for a `root` describe block but the actual method test was nested differently, causing execution errors during the Jest runner phase.
+3.  **Why did the Build pass?** In NestJS, the production build (`nest build`) uses `tsconfig.build.json`, which explicitly **excludes** `**/*spec.ts` files. This is why the project appeared "healthy" during build time but "broken" during test time.
+
+**The Corrected Code with the imports:**
+```typescript
+
+/// <reference types="jest" />
+
+import { Test, TestingModule } from '@nestjs/testing';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { beforeEach, describe, it } from 'node:test';
+
+describe('AppController', () => {
+  let app: TestingModule;
+  let appController: AppController;
+
+  beforeEach(async () => {
+    app = await Test.createTestingModule({
+      controllers: [AppController],
+      providers: [AppService],
+    }).compile();
+
+    appController = app.get<AppController>(AppController);
+  });
+
+  describe('root', () => {
+    it('should return "Hello World!"', () => {
+      expect(appController.getHello()).toBe('Hello World!');
+    });
+  });
+});
+function expect<T>(received: T) {
+  return {
+    toBe(expected: T) {
+      if (received !== expected) {
+        throw new Error(`Expected ${JSON.stringify(received)} to be ${JSON.stringify(expected)}.`);
+      }
+    },
+  };
+}
+
+
+```
 
 ---
 
