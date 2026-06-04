@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, MoreVertical, Loader2 } from 'lucide-react';
+import { toast, Toaster } from 'sonner';
 import TaskCard from './TaskCard';
 import { TaskStatus } from '../../types';
 import type { Task } from '../../types';
@@ -31,7 +32,9 @@ const KanbanBoard: React.FC = () => {
         const data = await response.json();
         setTasks(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
+        const msg = err instanceof Error ? err.message : 'An error occurred';
+        setError(msg);
+        toast.error(`Error loading tasks: ${msg}`);
       } finally {
         setIsLoading(false);
       }
@@ -41,25 +44,26 @@ const KanbanBoard: React.FC = () => {
   }, []);
 
   const handleUpdateTask = async (id: string, updates: Partial<Task>) => {
-    try {
-      const response = await fetch(`http://localhost:3000/tasks/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updates),
-      });
-
+    const promise = fetch(`http://localhost:3000/tasks/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updates),
+    }).then(async (response) => {
       if (!response.ok) {
         throw new Error('Failed to update task');
       }
-
       const updatedTask = await response.json();
       setTasks(prev => prev.map(t => t.id === id ? updatedTask : t));
-    } catch (err) {
-      console.error('Error updating task:', err);
-      // Optional: show a toast or alert
-    }
+      return updatedTask;
+    });
+
+    toast.promise(promise, {
+      loading: 'Updating task...',
+      success: (data) => `Task "${data.title}" updated successfully`,
+      error: 'Error updating task',
+    });
   };
 
   if (isLoading) {
@@ -73,14 +77,21 @@ const KanbanBoard: React.FC = () => {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center h-64 text-red-500 font-medium">
-        Error: {error}
+      <div className="flex flex-col items-center justify-center h-64 text-red-500 font-medium gap-4">
+        <span>Error: {error}</span>
+        <button 
+          onClick={() => window.location.reload()}
+          className="px-4 py-2 bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200 transition-colors text-sm"
+        >
+          Retry
+        </button>
       </div>
     );
   }
 
   return (
     <div className="flex gap-6 overflow-x-auto pb-4 h-full items-start">
+      <Toaster position="bottom-right" richColors />
       {columns.map((column) => {
         const columnTasks = tasks.filter(task => task.status === column.id);
         
