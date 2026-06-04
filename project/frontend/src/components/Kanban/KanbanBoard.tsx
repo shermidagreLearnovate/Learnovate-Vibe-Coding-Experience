@@ -40,6 +40,28 @@ const KanbanBoard: React.FC = () => {
     fetchTasks();
   }, []);
 
+  const handleUpdateTask = async (id: string, updates: Partial<Task>) => {
+    try {
+      const response = await fetch(`http://localhost:3000/tasks/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updates),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update task');
+      }
+
+      const updatedTask = await response.json();
+      setTasks(prev => prev.map(t => t.id === id ? updatedTask : t));
+    } catch (err) {
+      console.error('Error updating task:', err);
+      // Optional: show a toast or alert
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64 text-slate-500 gap-2">
@@ -85,7 +107,11 @@ const KanbanBoard: React.FC = () => {
             {/* Column Content */}
             <div className="flex flex-col gap-3 overflow-y-auto pr-1 custom-scrollbar">
               {columnTasks.map((task) => (
-                <TaskCard key={task.id} task={task} />
+                <TaskCard 
+                  key={task.id} 
+                  task={task} 
+                  onUpdate={handleUpdateTask}
+                />
               ))}
               
               <button className="flex items-center justify-center gap-2 p-3 mt-1 rounded-xl border-2 border-dashed border-slate-200 text-slate-400 hover:border-indigo-300 hover:text-indigo-500 hover:bg-indigo-50/50 transition-all text-xs font-semibold group">
