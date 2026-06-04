@@ -1,7 +1,7 @@
 import React from 'react';
 import { Plus, MoreVertical } from 'lucide-react';
 import TaskCard from './TaskCard';
-import type{ Task, TaskStatus } from '../../types';
+import { TaskStatus } from '../../types';
 import { mockTasks } from '../../data/mockData';
 
 interface Column {

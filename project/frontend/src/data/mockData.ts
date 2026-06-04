@@ -1,4 +1,5 @@
-import type{ Task, TaskStatus, Priority, User, Project } from '../types/index';
+import { TaskStatus, Priority } from '../types/index';
+import type { Task, User, Project } from '../types/index';
 
 export const mockUser: User = {
   id: 'u1',
