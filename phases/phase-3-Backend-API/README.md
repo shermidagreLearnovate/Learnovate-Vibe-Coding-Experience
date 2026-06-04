@@ -10,7 +10,7 @@ Working on the backend required a higher degree of precision and adherence to fr
 
 *   **Workflow Integration:** We transitioned from simple file creation to a structured "Research -> Strategy -> Execution" flow. This ensured that features like the Task Resource were generated using CLI tools (`nest g res`), maintaining "Framework Fidelity."
 *   **Adaptability:** Gemini had to pivot from local mock data to real network communication, identifying and solving CORS issues to allow the React frontend to fetch live data.
-*   **Correction Cycle:** When implementation gaps were identified (missing initializations, empty entities), a dedicated bug-fix branch was created to align the code with production-grade standards.
+*   **Infrastructure Troubleshooting:** During the final stages, we encountered significant containerization challenges (Podman/Docker). This required a deep dive into `npm workspaces` hoisting and TypeScript's emission behavior within Docker layers.
 
 ---
 
@@ -28,77 +28,26 @@ Working on the backend required a higher degree of precision and adherence to fr
 
 ---
 
-## 🔧 Architectural Bug Fixes & Refactoring
-Following an internal audit, several implementation gaps were identified and resolved in a dedicated cleanup pass:
+## 🔧 Infrastructure Fixes & Docker Hardening
+Following the initial deployment, several critical containerization issues were identified and resolved to ensure production readiness:
 
-### ⚠️ Reported Issues (English Translation):
-> "There are several failures in the code implementation, for which you will have to create a new branch and perform bug fixes:
-> - In `project/backend/src/tasks/dto/create-task.dto.ts`, variables are uninitialized.
-> - In `project/backend/src/tasks/entities/task.entity.ts`, it is empty.
-> - In `project/backend/src/app.controller.spec.ts`, it is wrongly formulated.
-> - In `project/backend/tsconfig.json`, the URL is incorrectly redirected."
+### ⚠️ Challenges Encountered:
+1.  **Missing JS in Dist:** The Docker image was missing `.js` files due to local `dist` pollution and incremental build settings.
+2.  **Hoisted Dependencies:** Modules like `dotenv` were missing because they were hoisted to the monorepo root, which wasn't being copied correctly.
+3.  **Prisma Initialization:** The Prisma client was not being re-generated in the final production stage.
 
-### ✅ Resolution:
-*   **DTO Initialization:** All mandatory fields in `CreateTaskDto` are now properly initialized to support strict TypeScript checks.
-*   **Entity Population:** The `Task` entity is now fully populated, mirroring the Prisma schema to allow for proper data mapping in the service layer.
-*   **Test Refactoring:** `app.controller.spec.ts` was rewritten using standard NestJS testing fixtures for better reliability.
-
-### 🧪 Deep Dive: Why did the Tests fail?
-Even though `npm run build` was successful, `npm run test` failed due to a structural mismatch in the testing boilerplate.
-
-**The Problem:**
-1.  **Declaration vs. Usage:** The test was trying to use a `moduleFixture` variable that wasn't correctly aligned with the `app` instance in the `beforeEach` block.
-2.  **Describe Block Mismatch:** The test was looking for a `root` describe block but the actual method test was nested differently, causing execution errors during the Jest runner phase.
-3.  **Why did the Build pass?** In NestJS, the production build (`nest build`) uses `tsconfig.build.json`, which explicitly **excludes** `**/*spec.ts` files. This is why the project appeared "healthy" during build time but "broken" during test time.
-
-**The Corrected Code with the imports:**
-```typescript
-
-/// <reference types="jest" />
-
-import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { beforeEach, describe, it } from 'node:test';
-
-describe('AppController', () => {
-  let app: TestingModule;
-  let appController: AppController;
-
-  beforeEach(async () => {
-    app = await Test.createTestingModule({
-      controllers: [AppController],
-      providers: [AppService],
-    }).compile();
-
-    appController = app.get<AppController>(AppController);
-  });
-
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
-    });
-  });
-});
-function expect<T>(received: T) {
-  return {
-    toBe(expected: T) {
-      if (received !== expected) {
-        throw new Error(`Expected ${JSON.stringify(received)} to be ${JSON.stringify(expected)}.`);
-      }
-    },
-  };
-}
-
-
-```
+### ✅ Resolutions:
+*   **Clean Builds:** Added a `.dockerignore` to exclude local `dist` and `node_modules`.
+*   **Workspace-Aware Dockerfile:** Refactored the `Dockerfile` to use `--workspace=backend` during dependency installation, ensuring all hoisted modules are captured.
+*   **Final Generation:** Added `npx prisma generate` to the final Docker stage.
+*   **Qualified Images:** Updated `docker-compose.yml` with `docker.io/` prefixes to prevent registry qualification errors in Podman.
 
 ---
 
 ## 📊 Key Takeaways for Miro Board
 1.  **Full-Stack Sync:** The application is now "alive" with a real database.
 2.  **Logic-Ready:** We proved we can inject business rules into the data flow.
-3.  **Standard Compliant:** The backend now follows standard NestJS/TypeScript architectural patterns.
+3.  **Container Resilience:** The infrastructure is now hardened against common monorepo deployment pitfalls.
 
 ---
 

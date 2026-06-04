@@ -1,0 +1,12 @@
+**/node_modules
+**/dist
+**/*.tsbuildinfo
+.git
+.github
+.gemini
+project/backend/dist
+project/frontend/dist
+project/backend/node_modules
+project/frontend/node_modules
+node_modules
+dist
