@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import { X } from 'lucide-react';
 import { TaskStatus, Priority } from '../../types';
 
@@ -9,7 +9,7 @@ interface CreateTaskModalProps {
   defaultStatus: TaskStatus;
 }
 
-const CreateTaskModal: React.FC<CreateTaskModalProps> = ({ isOpen, onClose, onCreate, defaultStatus }) => {
+const CreateTaskModal: FC<CreateTaskModalProps> = ({ isOpen, onClose, onCreate, defaultStatus }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [status, setStatus] = useState<TaskStatus>(defaultStatus);
