@@ -4,8 +4,8 @@ export class Task {
   id: string = '';
   title: string = '';
   description?: string;
-  status: TaskStatus = TaskStatus.TODO;
-  priority: Priority = Priority.MEDIUM;
+  status: TaskStatus = 'TODO' as TaskStatus;
+  priority: Priority = 'MEDIUM' as Priority;
   userId: string = '';
   projectId: string = '';
   createdAt: Date = new Date();
