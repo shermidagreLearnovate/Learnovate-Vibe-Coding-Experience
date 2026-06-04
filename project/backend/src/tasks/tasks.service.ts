@@ -8,6 +8,10 @@ export class TasksService {
   constructor(private prisma: PrismaService) {}
 
   create(createTaskDto: CreateTaskDto) {
+    if (createTaskDto.priority === 'HIGH') {
+      console.log('Notification triggered');
+      createTaskDto.title = `[URGENT] ${createTaskDto.title}`;
+    }
     return this.prisma.task.create({
       data: createTaskDto,
     });
