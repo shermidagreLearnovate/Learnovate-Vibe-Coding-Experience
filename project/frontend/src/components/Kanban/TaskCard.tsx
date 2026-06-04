@@ -1,4 +1,3 @@
-import React from 'react';
 import { MoreHorizontal, Calendar, MessageSquare, Paperclip } from 'lucide-react';
 import type{ Task } from '../../types';
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, MoreVertical, Loader2 } from 'lucide-react';
 import { toast, Toaster } from 'sonner';
 import TaskCard from './TaskCard';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import MainLayout from './components/Layout/MainLayout'
 import KanbanBoard from './components/Kanban/KanbanBoard'
 import { Filter, SortAsc, LayoutGrid, List } from 'lucide-react'
