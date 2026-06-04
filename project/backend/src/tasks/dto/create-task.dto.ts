@@ -1,10 +1,10 @@
 import { TaskStatus, Priority } from '@prisma/client';
 
 export class CreateTaskDto {
-  title: string;
+  title: string = '';
   description?: string;
-  status?: TaskStatus;
-  priority?: Priority;
-  userId: string;
-  projectId: string;
+  status?: TaskStatus = TaskStatus.TODO;
+  priority?: Priority = Priority.MEDIUM;
+  userId: string = '';
+  projectId: string = '';
 }
