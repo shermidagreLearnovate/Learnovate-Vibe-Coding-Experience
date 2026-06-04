@@ -6,15 +6,15 @@ describe('AppController', () => {
   let appController: AppController;
 
   beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
+    const app: TestingModule = await Test.createTestingModule({
       controllers: [AppController],
       providers: [AppService],
     }).compile();
 
-    appController = moduleFixture.get<AppController>(AppController);
+    appController = app.get<AppController>(AppController);
   });
 
-  describe('getHello', () => {
+  describe('root', () => {
     it('should return "Hello World!"', () => {
       expect(appController.getHello()).toBe('Hello World!');
     });
