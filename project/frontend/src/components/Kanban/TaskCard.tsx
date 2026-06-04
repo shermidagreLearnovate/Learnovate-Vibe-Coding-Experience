@@ -1,3 +1,4 @@
+import { useState, type FC } from 'react';
 import { MoreHorizontal, Calendar, MessageSquare, Paperclip } from 'lucide-react';
 import type{ Task } from '../../types';
 
@@ -6,9 +7,9 @@ interface TaskCardProps {
   onUpdate?: (id: string, updates: Partial<Task>) => void;
 }
 
-const TaskCard: React.FC<TaskCardProps> = ({ task, onUpdate }) => {
-  const [isEditing, setIsEditing] = React.useState(false);
-  const [editedTitle, setEditedTitle] = React.useState(task.title);
+const TaskCard: FC<TaskCardProps> = ({ task, onUpdate }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTitle, setEditedTitle] = useState(task.title);
 
   const priorityColors = {
     LOW: 'bg-green-100 text-green-700',

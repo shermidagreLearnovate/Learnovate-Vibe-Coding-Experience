@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type FC } from 'react';
 import { Plus, MoreVertical, Loader2 } from 'lucide-react';
 import { toast, Toaster } from 'sonner';
 import TaskCard from './TaskCard';
@@ -11,7 +11,7 @@ interface Column {
   title: string;
 }
 
-const KanbanBoard: React.FC = () => {
+const KanbanBoard: FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
