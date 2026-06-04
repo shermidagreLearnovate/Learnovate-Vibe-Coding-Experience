@@ -1,4 +1,3 @@
-import React from 'react';
 import { 
   LayoutDashboard, 
   FolderKanban, 
@@ -11,14 +10,16 @@ import {
 
 interface MainLayoutProps {
   children: React.ReactNode;
+  activeTab: string;
+  onTabChange: (tab: string) => void;
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+const MainLayout: React.FC<MainLayoutProps> = ({ children, activeTab, onTabChange }) => {
   const navItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', active: true },
-    { icon: FolderKanban, label: 'Projects', active: false },
-    { icon: CheckSquare, label: 'Tasks', active: false },
-    { icon: Settings, label: 'Settings', active: false },
+    { id: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+    { id: 'projects', icon: FolderKanban, label: 'Projects' },
+    { id: 'tasks', icon: CheckSquare, label: 'Tasks' },
+    { id: 'settings', icon: Settings, label: 'Settings' },
   ];
 
   return (
@@ -32,18 +33,18 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
         <nav className="flex-1 px-4 py-4 space-y-1">
           {navItems.map((item) => (
-            <a
-              key={item.label}
-              href="#"
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
-                item.active 
+            <button
+              key={item.id}
+              onClick={() => onTabChange(item.id)}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                activeTab === item.id 
                   ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/20' 
                   : 'hover:bg-slate-800 hover:text-white'
               }`}
             >
               <item.icon size={20} />
               <span className="font-medium">{item.label}</span>
-            </a>
+            </button>
           ))}
         </nav>
 
