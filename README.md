@@ -1,72 +1,132 @@
-# Learnovate: Vibe-Coding Research Experience
+# 🚀 Learnovate: Vibe-Coding Experience
 
-This project is a dedicated research study designed to evaluate the capabilities of AI models (gemini-3-flash-preview) in a "vibe-coding" and autonomous development context. The goal is to build a full-stack Task Management Application while documenting the model's performance, autonomy, and "visual taste."
+[![React](https://img.shields.io/badge/Frontend-React%2019-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![NestJS](https://img.shields.io/badge/Backend-NestJS%2011-E0234E?logo=nestjs&logoColor=white)](https://nestjs.com/)
+[![Prisma](https://img.shields.io/badge/ORM-Prisma%206-2D3748?logo=prisma&logoColor=white)](https://www.prisma.io/)
+[![Tailwind](https://img.shields.io/badge/Styling-Tailwind%204-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Docker](https://img.shields.io/badge/Infra-Docker%20%2F%20Podman-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 
----
-
-## 🎯 Project Goals
-
-### LLM Research
-- **Subscription Evaluation:** Identify which subscription-based AI services provide the best value without excessive cost.
-- **Open Source Benchmarking:** Evaluate open-source models that approach the capabilities of paid services.
-  - Criteria: "Clever enough" / "Not too stupid."
-  - Performance: Runs efficiently on reasonable hardware.
-
-### Team Integration
-- **Workflow Optimization:** Identify quick ways to integrate basic vibe-coding into existing professional workflows.
-- **Efficiency:** Document things to avoid and potential wastes of time when using AI for development.
+A professional, full-stack **Task Management Application** built as part of an autonomous AI development research study ("Vibe-Coding"). This project showcases a high-fidelity Kanban experience, a robust NestJS backend, and a containerized infrastructure.
 
 ---
 
-## 📋 Rules of Engagement
+## ✨ Key Features
 
-1.  **Consistency:** Start each task with the provided 'starter prompt' but assist the model if it encounters blockers.
-2.  **Traceability:** Record all prompts used during the development process.
-3.  **Task Documentation:** After completing each task, **overwrite** the corresponding `Readme.md` in its task folder (e.g., `phases/phase-X/task-X/Readme.md`) with the exact console prompt used, the sample prompt, and a full summary of the implementation to ensure comprehensive research logging.
-4.  **GitHub Workflow:** For every new task, a dedicated **Git branch** must be created. Upon completion of the task, a **Pull Request** must be opened to document the changes before merging.
-5.  **Version Control:** Commit changes to the repository after every completed task.
-6.  **Visual Documentation:** Capture screenshots of the running application at key milestones.
-7.  **Insights:** Document interesting or unexpected suggestions made by the LLM.
-8.  **Transparency:** Document any additional instructions or system prompts defined in the environment.
+- **🎯 Interactive Kanban Board:** Drag-and-drop-ready UI with dynamic columns (To Do, In Progress, Done).
+- **📝 Inline Editing:** Rename tasks instantly by clicking on their titles.
+- **➕ Functional Creation:** Add new tasks via a modern modal with priority and status selection.
+- **🔔 Pro UX:** Real-time feedback with professional toast notifications (Sonner) and loading states.
+- **🏗️ Solid Architecture:** Monorepo structure using NPM Workspaces for shared logic and easy management.
+- **🐳 Container First:** Fully dockerized setup compatible with both Docker and Podman.
 
 ---
 
-## 🧠 Evaluation Criteria (Keep in Mind)
+## 🛠️ Tech Stack
 
-During the research, we evaluate the model based on:
-1.  **Context Awareness:** Did it remember decisions from Task 1.1 when working on Task 3.2?
-2.  **Correction Loops:** How many "No, I meant..." prompts were required to reach the goal?
-3.  **Code Cleanliness:** Is the code idiomatic and clean, or does it require immediate refactoring?
-4.  **"The Magic":** Did the model proactively implement a cool feature or optimization that wasn't explicitly asked for?
-5.  **Recovery Rate:** When corrected, does it fix the error perfectly, or does it cause a "Whack-a-Mole" effect (breaking something else)?
+### Frontend
+- **Framework:** React 19 (TypeScript)
+- **Build Tool:** Vite
+- **Styling:** Tailwind CSS v4 (Modern Slate/Indigo palette)
+- **Icons:** Lucide React
+- **Notifications:** Sonner
 
----
+### Backend
+- **Framework:** NestJS 11
+- **ORM:** Prisma v6
+- **Language:** TypeScript
+- **Database:** PostgreSQL 15
 
-## 🗺️ Project Roadmap (Phases)
-
-### Phase 1: Infrastructure
-- **Task 1.1:** Initialize monorepo structure (React/Vite + NestJS).
-- **Task 1.2:** Prisma Schema design (User, Project, Task models).
-- **Task 1.3:** Dockerization (Frontend, Backend, PostgreSQL).
-
-### Phase 2: Frontend
-- **Task 2.1:** Tailwind CSS setup and Main Layout (Sidebar/Topbar).
-- **Task 2.2:** Kanban Board component (Columns and Task Cards).
-- **Task 2.3:** Type definitions and Mock Data integration.
-
-### Phase 3: Backend API
-- **Task 3.1:** NestJS CRUD generation for Tasks.
-- **Task 3.2:** Business logic implementation (High-priority notifications).
-- **Task 3.3:** Frontend-Backend integration (Replacing mock data with API calls).
-
-### Phase 4: Refactoring & Polish
-- **Task 4.1:** Inline editing (Click-to-rename task titles).
-- **Task 4.2:** UX Enhancements (Loading spinners and Toast notifications).
+### Infrastructure
+- **Orchestration:** Docker Compose / Podman Compose
+- **Container Runtime:** Node 20-Alpine
 
 ---
 
-## 🚀 Current Status
-**Research Mode: Initialized**
-- Context: React/NestJS/Prisma stack.
-- Configurations: Updated `.github/gemini` and `project/.gemini`.
-- Next Step: Start Task 1.1.
+## 🚀 Getting Started
+
+### 📋 Prerequisites
+- **Node.js:** v20 or higher
+- **NPM:** v10 or higher
+- **Docker / Podman:** Installed and running
+
+### 🔧 Installation & Setup
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/shermidagreLearnovate/Learnovate-Vibe-Coding-Experience.git
+   cd Learnovate-Vibe-Coding-Experience/project
+   ```
+
+2. **Install Dependencies:**
+   Install all dependencies for the entire monorepo:
+   ```bash
+   npm install
+   ```
+
+3. **Infrastructure Setup:**
+   Start the database and services using Docker/Podman Compose:
+   ```bash
+   # Using Docker
+   docker-compose up -d
+   
+   # Using Podman
+   podman-compose up -d
+   ```
+
+4. **Initialize Database:**
+   Push the Prisma schema to your local database:
+   ```bash
+   # From the project directory
+   cd backend
+   npx prisma db push
+   ```
+
+5. **Run in Development Mode:**
+   You can run both services from the root `project` directory:
+   ```bash
+   # Backend (localhost:3000)
+   npm run backend:dev
+   
+   # Frontend (localhost:5173)
+   npm run frontend:dev
+   ```
+
+---
+
+## 📂 Architecture Overview
+
+```text
+Learnovate-Vibe-Coding-Experience/
+├── project/                # The main application
+│   ├── frontend/           # React + Vite + Tailwind
+│   ├── backend/            # NestJS + Prisma
+│   └── docker-compose.yml  # Infrastructure orchestration
+├── phases/                 # Research documentation by phase
+└── .github/gemini/         # AI Instruction and workflow center
+```
+
+---
+
+## 📈 Project Progress
+
+| Phase | Goal | Status |
+|---|---|---|
+| **Phase 1** | Infrastructure & Monorepo Setup | ✅ Completed |
+| **Phase 2** | High-Fidelity Frontend UI | ✅ Completed |
+| **Phase 3** | Backend API & Data Persistence | ✅ Completed |
+| **Phase 4** | Refactoring & Advanced UX | ✅ Completed |
+| **Phase 5** | Comprehensive Documentation | 🏗️ In Progress |
+
+---
+
+## 🧪 Development Workflow
+
+This project follows a **Research -> Strategy -> Execution** lifecycle managed by the **Gemini CLI Agent**.
+- **Surgical Precision:** Code changes are applied targetedly to avoid regressions.
+- **Validation:** Every change is verified through builds and runtime checks.
+- **Traceability:** Every task is documented in the `phases/` directory with its own branch and summary.
+
+---
+
+## 📝 License
+This project is part of a private research study. See the `README.md` in the root for specific study goals and rules.
