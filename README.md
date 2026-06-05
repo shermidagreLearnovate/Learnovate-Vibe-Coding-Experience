@@ -6,17 +6,78 @@
 [![Tailwind](https://img.shields.io/badge/Styling-Tailwind%204-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Docker](https://img.shields.io/badge/Infra-Docker%20%2F%20Podman-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 
-A professional, full-stack **Task Management Application** built as part of an autonomous AI development research study ("Vibe-Coding"). This project showcases a high-fidelity Kanban experience, a robust NestJS backend, and a containerized infrastructure.
+A professional, full-stack **Task Management Application** built as part of an autonomous AI development research study ("Vibe-Coding"). This project showcases a high-fidelity Kanban experience, a robust NestJS backend, and a containerized infrastructure, balancing modern aesthetics with industrial-grade engineering.
+
+---
+
+## 📊 System Architecture
+
+### 🗄️ Database Schema (ERD)
+Our data layer is built on PostgreSQL with Prisma ORM, ensuring strict type safety and relational integrity.
+
+```mermaid
+erDiagram
+    USER ||--o{ PROJECT : "owns"
+    USER ||--o{ TASK : "assigned to"
+    PROJECT ||--o{ TASK : "contains"
+
+    USER {
+        string id PK
+        string email UK
+        string name
+    }
+
+    PROJECT {
+        string id PK
+        string title
+        string ownerId FK
+    }
+
+    TASK {
+        string id PK
+        string title
+        string description
+        enum status
+        enum priority
+        string userId FK
+        string projectId FK
+    }
+```
+
+### 🔄 Core Application Flow (Task Creation)
+This diagram illustrates the asynchronous lifecycle of a task creation event, from the React UI to the PostgreSQL database.
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend as React (Vite)
+    participant Backend as NestJS (API)
+    participant DB as PostgreSQL (Prisma)
+
+    User->>Frontend: Fills title & clicks "Create"
+    Note over Frontend: Validation & Sonner Toast (Loading)
+    
+    Frontend->>Backend: POST /tasks
+    
+    Note over Backend: DTO Validation & Priority Logic
+    Backend->>DB: prisma.task.create()
+    DB-->>Backend: Created Task Record
+    
+    Backend-->>Frontend: 201 Created
+    
+    Note over Frontend: Sync Local State (setTasks)
+    Frontend-->>User: Show Success Toast & Close Modal
+```
 
 ---
 
 ## ✨ Key Features
 
 - **🎯 Interactive Kanban Board:** Drag-and-drop-ready UI with dynamic columns (To Do, In Progress, Done).
-- **📝 Inline Editing:** Rename tasks instantly by clicking on their titles.
-- **➕ Functional Creation:** Add new tasks via a modern modal with priority and status selection.
-- **🔔 Pro UX:** Real-time feedback with professional toast notifications (Sonner) and loading states.
-- **🏗️ Solid Architecture:** Monorepo structure using NPM Workspaces for shared logic and easy management.
+- **📝 Inline Editing:** Rename tasks instantly by clicking on their titles—persisted via PATCH requests.
+- **➕ Functional Creation:** Add new tasks via a modern modal with real-time API synchronization.
+- **🔔 Pro UX:** High-fidelity feedback with professional toast notifications (Sonner) and loading states.
+- **🛤️ Professional Routing:** Integrated `react-router-dom` for scalable, browser-standard navigation.
 - **🐳 Container First:** Fully dockerized setup compatible with both Docker and Podman.
 
 ---
@@ -29,6 +90,7 @@ A professional, full-stack **Task Management Application** built as part of an a
 - **Styling:** Tailwind CSS v4 (Modern Slate/Indigo palette)
 - **Icons:** Lucide React
 - **Notifications:** Sonner
+- **Routing:** React Router 7
 
 ### Backend
 - **Framework:** NestJS 11
@@ -58,42 +120,32 @@ A professional, full-stack **Task Management Application** built as part of an a
    ```
 
 2. **Install Dependencies:**
-   Install all dependencies for the entire monorepo:
    ```bash
    npm install
    ```
 
 3. **Infrastructure Setup:**
-   Start the database and services using Docker/Podman Compose:
    ```bash
    # Using Docker
    docker-compose up -d
-   
-   # Using Podman
-   podman-compose up -d
    ```
 
 4. **Initialize Database:**
-   Push the Prisma schema to your local database:
    ```bash
-   # From the project directory
    cd backend
    npx prisma db push
    ```
 
 5. **Run in Development Mode:**
-   You can run both services from the root `project` directory:
    ```bash
-   # Backend (localhost:3000)
+   # From the root 'project' directory
    npm run backend:dev
-   
-   # Frontend (localhost:5173)
    npm run frontend:dev
    ```
 
 ---
 
-## 📂 Architecture Overview
+## 📂 Project Structure
 
 ```text
 Learnovate-Vibe-Coding-Experience/
@@ -115,16 +167,15 @@ Learnovate-Vibe-Coding-Experience/
 | **Phase 2** | High-Fidelity Frontend UI | ✅ Completed |
 | **Phase 3** | Backend API & Data Persistence | ✅ Completed |
 | **Phase 4** | Refactoring & Advanced UX | ✅ Completed |
-| **Phase 5** | Comprehensive Documentation | 🏗️ In Progress |
+| **Phase 5** | Comprehensive Documentation | ✅ Completed |
 
 ---
 
-## 🧪 Development Workflow
+## 📓 Developer Reflections
 
-This project follows a **Research -> Strategy -> Execution** lifecycle managed by the **Gemini CLI Agent**.
-- **Surgical Precision:** Code changes are applied targetedly to avoid regressions.
-- **Validation:** Every change is verified through builds and runtime checks.
-- **Traceability:** Every task is documented in the `phases/` directory with its own branch and summary.
+For a deep dive into the development process, technical failures, and autonomous AI insights, see:
+- **[PROJECT_REVIEW.md](./PROJECT_REVIEW.md):** A detailed technical audit and 60-commit lifecycle analysis.
+- **[SINCERE_NARRATIVE.md](./SINCERE_NARRATIVE.md):** A sincere reflection on the "Aesthetic Trap" and the partnership between AI and Human engineering.
 
 ---
 
