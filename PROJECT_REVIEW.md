@@ -136,7 +136,7 @@ The manual tab switcher was refactored to `react-router-dom`.
 This document was generated in response to the following high-fidelity requirement:
 
 > **The Directive:**
-> *"Generate a sincere, exhaustive review of the entire project. Analyze all requirements established BEFORE the prototype code was written. Generate auto-feedback highlighting successes, failures, and areas for improvement. Specifically include a categorized analysis of ALL commits (not just a few). Document Phase 5 and the numerous manual corrections required (Routing, CRUD, TypeScript Enums). This review must be high-signal, professional, and potentially 300-500 lines long. Do not be lazy."*
+> *"Generate a sincere, exhaustive review of the entire project. Analyze all requirements established BEFORE the prototype code was written. Generate auto-feedback highlighting successes, failures, and areas for improvement. Specifically include a categorized analysis of ALL commits (not just a few). Document Phase 5 and the numerous manual corrections required (Routing, CRUD, TypeScript Enums). This review must be high-signal, professional. Do not be lazy."*
 
 ---
 
